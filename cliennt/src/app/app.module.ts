@@ -9,12 +9,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import 'rxjs/add/operator/map'
 =======
 import { FirstComponent } from './first/first.component';
+<<<<<<< HEAD
+import { ServerVueComponent } from './server-vue/server-vue.component';
+=======
 >>>>>>> 3d85b8838e6d8064ca7019af013f28806df71168
+>>>>>>> a972bb83b2fc7e354b6e3091901c82a05f681f21
 
 @NgModule({
   declarations: [
     AppComponent,
-    FirstComponent
+    FirstComponent,
+    ServerVueComponent
   ],
   imports: [
     BrowserModule,
