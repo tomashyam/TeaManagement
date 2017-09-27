@@ -6,7 +6,7 @@ const connectionProvider = {
     getConnection : getConnection
 }
 
-const url = 'mongodb://localhost:27017/teaManagement';
+const url = 'mongodb://ws66:27017/teaManagement';
 
 function getConnection (callback)  {
         MongoClient.connect(url, function(err, db) {
