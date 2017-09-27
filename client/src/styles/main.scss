@@ -1,7 +1,16 @@
 @import "~angular-material/angular-material.css";
+$toolbar-height: 70px;
 
 body {
   direction: rtl;
   margin: 0;
   padding: 0;
+
+  .toolbar{
+  height: $toolbar-height;
+  }
+
+  .content{
+    height: calc(100% - 64px);
+  }
 }

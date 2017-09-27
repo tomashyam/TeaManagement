@@ -5,9 +5,6 @@
 
 export class TeamSelectorComponent {
     templateUrl = 'teamSelector/teamSelector.html';
-    // bindings: {
-    //     // Optionals hero: '='
-    // },
     controller= TeamSelectorController;
 }
 
