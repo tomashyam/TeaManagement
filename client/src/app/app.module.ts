@@ -4,6 +4,7 @@ import 'angular-aria';
 import 'angular-messages';
 
 import Sample from '../sample/sample.module'
+import TeamSelector from '../teamSelector/teamSelector.module'
 
 import angularMaterial from 'angular-material';
 
@@ -12,5 +13,6 @@ angular.module('app', [
 
 
     // My modules:
-    Sample
+    Sample,
+    TeamSelector
 ]);
