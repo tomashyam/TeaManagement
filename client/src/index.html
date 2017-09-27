@@ -10,19 +10,7 @@
 <body ng-app="app" ng-cloak>
 <toolbar class="toolbar"></toolbar>
 <md-content class="content">
-    <md-sidenav class="md-sidenav-left" md-component-id="left"
-                md-disable-backdrop md-whiteframe="4">
-        <md-list flex>
-            <md-list-item ng-click="null">
-                <div class="md-list-item-text" layout="column">
-                    מידע כללי
-                </div>
-            </md-list-item>
-            <md-list-item ng-click="null">
-                ניטור שרתים
-            </md-list-item>
-        </md-list>
-    </md-sidenav>
+    <sidenav></sidenav>
     <div ng-view></div>
 </md-content>
 </body>

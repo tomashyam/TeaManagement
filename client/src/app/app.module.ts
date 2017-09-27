@@ -7,6 +7,7 @@ import ngRoute from 'angular-route';
 import Sample from '../sample/sample.module'
 import TeamSelector from '../teamSelector/teamSelector.module'
 import Toolbar from '../toolbar/toolbar.module'
+import Sidenav from '../sidenav/sidenav.module'
 
 import {AppDataService} from '../Utilities/appData.service'
 
@@ -17,7 +18,8 @@ var application = angular.module('app',  [
     angularMaterial,
     Sample,
     TeamSelector,
-    Toolbar
+    Toolbar,
+    Sidenav
  ]);
 
 application.service('AppDataService', AppDataService);
