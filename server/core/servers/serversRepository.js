@@ -1,5 +1,6 @@
 const connectionProvider = require('../utils/MongoConnectionProvider');
 const assert = require('assert');
+var mongo = require('mongodb');
 
 var ServersRepository = {
     getByTeamId: getByTeamId,
@@ -12,7 +13,7 @@ var ServersRepository = {
             try {
                 connectionProvider.getConnection((db) => {
                     var collection = db.collection('servers');
-                    collection.find({TeamId: teamId}).toArray((err, servers)=> {
+                    collection.find({TeamId: new mongo.ObjectID(teamId)}).toArray((err, servers)=> {
                         if (err) {
                             reject(err);
                         }
