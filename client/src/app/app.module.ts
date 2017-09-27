@@ -3,8 +3,14 @@ import 'angular-animate';
 import 'angular-aria';
 import 'angular-messages';
 
+import Sample from '../sample/sample.module'
+
 import angularMaterial from 'angular-material';
 
 angular.module('app', [
-    angularMaterial
+    angularMaterial,
+
+
+    // My modules:
+    Sample
 ]);
