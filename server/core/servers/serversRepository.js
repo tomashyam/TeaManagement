@@ -1,64 +1,75 @@
-var repository = {
+const connectionProvider = require('../utils/MongoConnectionProvider');
+const assert = require('assert');
+
+var ServersRepository = {
     getByTeamId: getByTeamId,
     add: add,
-    delete: deleteServer
+    deleteServer: deleteServer
 };
 
-var connectionProvider = require('../utils/MongoConnectionProvider'),
-    assert = require('assert'),
-    Promise = require('promise');
-
-function getByTeamId(teamId) {
-    return new Promise(function (resolve, reject) {
-        try {
-            connectionProvider.getConnection(function (db) {
-                var collection = db.collection('servers');
-                collection.find({TeamId: teamId}).toArray(function (err, sessions) {
-                    if (err) {
-                        reject(err);
-                    }
-                    resolve(sessions);
+    function getByTeamId(teamId) {
+        return new Promise(function (resolve, reject) {
+            try {
+                connectionProvider.getConnection((db) => {
+                    var collection = db.collection('servers');
+                    collection.find({TeamId: teamId}).toArray((err, servers)=> {
+                        if (err) {
+                            reject(err);
+                        }
+                        resolve(servers);
+                    });
                 });
-            });
-        } catch (e) {
-            reject(e);
-        }
-    });
-}
+            } catch (e) {
+                reject(e);
+            }
+        });
+    }
 
-function add(server) {
-    return new Promise(function (resolve, reject) {
-        try {
-            connectionProvider.getConnection(function (db) {
-                var collection = db.collection('servers');
-                collection.insert(server, function (err, result) {
-                    if(err){
-                        reject(err);
-                    }
-                    resolve(result.insertedIds[0].toString());
+    function add(server) {
+        return new Promise(function (resolve, reject) {
+            try {
+                connectionProvider.getConnection((db)=> {
+                    var collection = db.collection('servers');
+                    collection.insert(server, (err, result) => {
+                        if (err) {
+                            reject(err);
+                        }
+                        resolve(result.insertedIds[0].toString());
+                    });
                 });
-            });
-        } catch (e) {
-            reject(e);
-        }
-    });
-}
+            } catch (e) {
+                reject(e);
+            }
+        });
+    }
 
-function deleteServer(serverId) {
-    return new Promise(function (resolve, reject) {
-        try {
-            connectionProvider.getConnection(function (db) {
-                var collection = db.collection('servers');
-                collection.delete({_id: serverId}, function (err, result) {
-                    if(err){
-                        reject(err);
-                    }
-                    resolve(true);
+    function deleteServer(serverId) {
+        return new Promise(function (resolve, reject) {
+            try {
+                connectionProvider.getConnection(function (db) {
+                    var collection = db.collection('servers');
+                    collection.delete({_id: serverId}, function (err, result) {
+                        if (err) {
+                            reject(err);
+                        }
+                        resolve(true);
+                    });
                 });
-            });
-        } catch (e) {
-            reject(e);
-        }
-    });
-}
-module.exports = repository;
+            } catch (e) {
+                reject(e);
+            }
+        });
+    }
+
+module.exports = ServersRepository;
+
+
+
+
+
+
+
+
+
+
+

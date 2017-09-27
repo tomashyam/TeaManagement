@@ -1,16 +1,16 @@
-const express = require('express');
-const router = express.Router();
-const ServersRepository =require('./serversRepository');
+var express = require('express');
+var router = express.Router();
+var repository = require('./usersRepository');
 
 router.get('/:teamId', function(req, res, next) {
-    ServersRepository.getByTeamId(req.params.teamId)
+    repository.getByTeamId(req.params.teamId)
         .then(function (users) {
             res.send(users);
         });
 });
 
 router.post('/add', function(req, res, next) {
-    ServersRepository.add(req.body).then(function onSuccess(id) {
+    repository.add(req.body).then(function onSuccess(id) {
         res.send(id);
     }, function onError(err) {
         res.status(500).error(err);
@@ -18,7 +18,7 @@ router.post('/add', function(req, res, next) {
 });
 
 router.get('/delete/:serverId', function(req, res, next) {
-    ServersRepository.delete(req.params.serverId).then(function onSuccess() {
+    repository.delete(req.params.serverId).then(function onSuccess() {
         res.send(true);
     }, function onError(err) {
         res.status(500).error(err);
