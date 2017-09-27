@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-<<<<<<< HEAD
 import { sereverVue } from './server-vue/server-vue.component';
-=======
 import { Http } from '@angular/http';
->>>>>>> a972bb83b2fc7e354b6e3091901c82a05f681f21
+
 
 @Component({
   selector: 'app-root',
