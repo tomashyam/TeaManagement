@@ -1,4 +1,3 @@
-import {IAppDataService} from '../Utilities/appData.service'
 
 export class ServersComponent {
     templateUrl = 'servers/servers.html';
