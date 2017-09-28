@@ -1,4 +1,4 @@
-import angular from 'angular';
+import * as angular from 'angular';
 import 'angular-animate';
 import 'angular-aria';
 import 'angular-messages';
@@ -14,12 +14,16 @@ import Servers from '../servers/servers.module';
 import Team from '../team/team.module';
 import NewUser from '../newUser/newUser.module';
 import NewTeam from '../newTeam/newTeam.module';
+
+import {AppDataService} from '../Utilities/appData.service';
+import {IdentityService} from '../Utilities/identityService';
+import {FacadeApiService} from '../Utilities/facadeApi.service'
 import 'chart.js'
 import {AppDataService} from '../Utilities/appData.service'
 
 import angularMaterial from 'angular-material';
 
-var application = angular.module('app',  [
+var application = angular.module('app', [
     ngRoute,
     angularMaterial,
     Sample,
@@ -27,18 +31,32 @@ var application = angular.module('app',  [
     Toolbar,
     Sidenav,
     Servers,
-    'dataGrid', 'pagination'
- ]);
+    'dataGrid', 'pagination',
+    Team,
+    NewUser,
+    NewTeam
+]);
 
 application.service('AppDataService', AppDataService);
+application.service('IdentityService', IdentityService);
+application.service('FacadeApiService', FacadeApiService);
 
-application.config(function($routeProvider : ng.route.IRouteProvider) : void {
+application.config(function ($routeProvider: ng.route.IRouteProvider): void {
     $routeProvider
         .when("/", {
-            template : "<team-selector></team-selector>"
+            template: "<team-selector></team-selector>"
         })
         .when("/Teams", {
             template : "<team-selector></team-selector>"
+        })
+        .when("/Team", {
+            template : "<team></team>"
+        })
+        .when("/AddTeam", {
+            template : "<new-team></new-team>"
+        })
+        .when("/AddUser", {
+            template : "<new-user></new-user>"
         })
         .when("/Servers", {
             template : "<servers></servers>"

@@ -1,4 +1,5 @@
 
+import {IFacadeApiService} from "../Utilities/facadeApi.service";
 export class ServersComponent {
     templateUrl = 'servers/servers.html';
     controller = ServersController;
@@ -6,39 +7,20 @@ export class ServersComponent {
 }
 
 export class ServersController {
-    static $inject = ['$location'];
-
-    constructor(public $location: any) {
-
-    }
+    static $inject = ['$location', 'FacadeApiService'];
 
     public gridOptions = {
-        data: [{
-            "statusDisplay": "Valid",
-            "hostname": "AS66",
-            "address": "128.0.0.1",
-            "project" : "SouthPark",
-            "environment" : "prod",
-            "username" : "Administrator",
-            "password" : "Aa123456",
-            "description" : "For my big load cache",
-            "OS" : "Linux",
-            "IsAliveUrl" : "http://localhost/isalive"
-        },
-            {
-                "statusDisplay": "Hold",
-                "hostname": "WS66",
-                "address": "128.0.0.6",
-                "project" : "SouthPark",
-                "environment" : "exer",
-                "username" : "Administrator",
-                "password" : "Aa123456",
-                "description" : "For my big load cache",
-                "OS" : "Windows",
-                "IsAliveUrl" : "http://localhost/isalive"
-            }],
+        data: [],
         urlSync: false
     };
+
+    constructor(public $location: any, FacadeApiService: any) {
+        FacadeApiService.getTeamServers("59cbeea37d9211423cebdf2e").then((result: any) => {
+            this.gridOptions.data = result.data;
+        }, (error : string) => {
+
+        });
+    }
 }
 
 

@@ -43,6 +43,9 @@ export class TeamSelectorController {
         this.$location.url("/Team");
     }
 
+    public onAddTeam(): void {
+        this.$location.url("/AddTeam");
+    }
 }
 
 

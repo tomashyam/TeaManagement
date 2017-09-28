@@ -1,13 +1,22 @@
-<md-input-container>
-    <label>חיפוש</label>
-    <input ng-model="txtFilter">
-</md-input-container>
-<div ng-repeat="team in vm.teams | filter:txtFilter">
-    <md-card  style="width: 300px;" ng-click="vm.onTeamSelect(team)">
-        <md-card-title>
-            <md-card-title-text>
-                <span class="md-headline">{{team.name}}</span>
-            </md-card-title-text>
-        </md-card-title>
-    </md-card>
+<div>
+    <div>
+        <md-input-container>
+            <label>חיפוש</label>
+            <input ng-model="txtFilter">
+        </md-input-container>
+    </div>
+    <div ng-repeat="team in vm.teams | filter:txtFilter">
+        <md-card style="width: 300px;" ng-click="vm.onTeamSelect(team)">
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">{{team.name}}</span>
+                </md-card-title-text>
+            </md-card-title>
+        </md-card>
+    </div>
+    <div>
+        <md-button ng-click="vm.onAddTeam()" class="md-fab" aria-label="Add Group" style="background-color: green">
+            +
+        </md-button>
+    </div>
 </div>
