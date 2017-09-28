@@ -1,3 +1,5 @@
+import {IIdentityService} from '../Utilities/identityService';
+
 export class TeamComponent  {
     templateUrl = '/team/team.template.html';
     // bindings: {
@@ -9,12 +11,15 @@ export class TeamComponent  {
 }
 
 export class TeamController {
-    public team = {
-        name: "תור בינה",
-        members: [{
-            Name: "משה",
-            Id: "moshe",
-            Mail: "A@gmail.com"
-        }]
-    };
+
+    static $inject = ['IdentityService'];
+
+    constructor(public IdentityService: IIdentityService) {
+
+    }
+
+    public onUserSelect(member: any): void {
+        this.IdentityService.currentUser = member;
+    }
+
 }

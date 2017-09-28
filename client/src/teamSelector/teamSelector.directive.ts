@@ -8,20 +8,39 @@ export class TeamSelectorComponent {
 
 export class TeamSelectorController {
 
-    static $inject = ['IdentityService'];
+    static $inject = ['IdentityService', '$location'];
 
-    constructor(public IdentityService: IIdentityService) {
+    constructor(public IdentityService: IIdentityService, public $location: any) {
 
     }
 
     public teams = [{
-        name: "תור בינה"
+        _id: 1,
+        name: "תור בינה",
+        members: [{
+            Name: "משה",
+            Id: "moshe",
+            Mail: "A@gmail.com"
+        },
+            {
+                Name: "משה",
+                Id: "moshe",
+                Mail: "A@gmail.com"
+            }
+        ]
     }, {
-        name: "פייטלאב"
+        _id: 2,
+        name: "פייטלאב",
+        members: [{
+            Name: "משה",
+            Id: "moshe",
+            Mail: "A@gmail.com"
+        }]
     }];
 
     public onTeamSelect(team: any): void {
         this.IdentityService.currentTeam = team;
+        this.$location.url("/Team");
     }
 
 }

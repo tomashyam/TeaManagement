@@ -45,6 +45,9 @@ application.config(function ($routeProvider: ng.route.IRouteProvider): void {
         .when("/Teams", {
             template : "<team-selector></team-selector>"
         })
+        .when("/Team", {
+            template : "<team></team>"
+        })
         .when("/Servers", {
             template : "<servers></servers>"
         });
