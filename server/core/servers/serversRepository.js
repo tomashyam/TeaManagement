@@ -18,8 +18,8 @@ var ServersRepository = {
                             reject(err);
                         }
                         resolve(servers);
-                    });
-                });
+                    })
+                })
             } catch (e) {
                 reject(e);
             }

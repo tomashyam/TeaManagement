@@ -12,7 +12,7 @@ function getByTeamId(teamId) {
     return new Promise(function (resolve, reject) {
         try {
             connectionProvider.getConnection(function (db) {
-                var collection = db.collection('servers');
+                var collection = db.collection('users');
                 collection.find({TeamId: teamId}).toArray(function (err, sessions) {
                     if (err) {
                         reject(err);
@@ -30,7 +30,7 @@ function add(server) {
     return new Promise(function (resolve, reject) {
         try {
             connectionProvider.getConnection(function (db) {
-                var collection = db.collection('servers');
+                var collection = db.collection('users');
                 collection.insert(server, function (err, result) {
                     if(err){
                         reject(err);

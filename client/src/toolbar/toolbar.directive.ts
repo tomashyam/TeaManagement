@@ -1,4 +1,5 @@
 import {IAppDataService} from '../Utilities/appData.service'
+import {IIdentityService} from "../Utilities/identityService";
 
 export class ToolbarComponent {
     templateUrl = 'toolbar/toolbar.html';
@@ -9,7 +10,7 @@ export class ToolbarComponent {
 export class ToolbarController {
     static $inject = ['AppDataService'];
 
-    constructor(public AppDataService: IAppDataService){
+    constructor(public AppDataService: IAppDataService, public IdentityService: IIdentityService){
 
     }
 

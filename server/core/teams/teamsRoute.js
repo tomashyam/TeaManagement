@@ -58,5 +58,20 @@ router.post('/delete', (req,res)=> {
     }
 });
 
-
+router.get('/members/:teamId' , (req,res)=> {
+    // repo.getAll
+    try{
+        teamRepository.getMembers(req.params.teamId)
+            .then((members)=> {
+                res.json(members);
+            })
+            .catch((error)=> {
+                res.status(500).json({message: "hit an error while get all teams", err: error});
+            });
+    }
+    catch(e)
+    {
+        e.message;
+    }
+});
 module.exports = router;
