@@ -1,41 +1,46 @@
 import {IIdentityService} from "../Utilities/identityService";
+import {IFacadeApiService} from "../Utilities/facadeApi.service"
 /**
  * Created by hack on 28/09/2017.
  */
 
-const _  = require('underscore');
+const _ = require('underscore');
 const moment = require('moment');
 const chart = require('chart.js');
 
 export class userDisplay implements ng.IDirective {
     templateUrl = 'user/user.html';
     controller = userDisplayController;
-    controllerAs  = 'vm';
+    controllerAs = 'vm';
 }
 
 export class userDisplayController implements ng.IController {
 
+    public userId: any;
+    public timeScale: any;
+    public user: any;
+
+    public static $inject = ["IdentityService", "FacadeApiService"];
+
     private myBarChart;
     private barData: any[];
-    public userId:any;
-    public timeScale: any;
-    public user:any;
 
-
-     constructor (){
+    constructor(private IdentityService: IIdentityService, private  FacadeApiService: IFacadeApiService) {
         // this.dataProvider.getUser(this.userId).then((user:any) => {
         //     this.user = user;
-         this.userId = "AAASS";
+        debugger;
+        this.userId = IdentityService.currentUser._id;
 
-         this.user = JSON.parse(this.json);
-         var chartData = this.getUserTimeUsage()
-         this.barData = chartData.data;
-         var canvas = <HTMLCanvasElement> document.getElementById("myChart");
-         var ctx = canvas.getContext("2d");
-             ctx.hight = 100;
-             ctx.width = 100;
+        this.FacadeApiService.getUserSessions(this.userId).then(sesions => {
+            this.user = sesions.data;
+            var chartData = this.getUserTimeUsage()
+            this.barData = chartData.data;
+            var canvas = <HTMLCanvasElement> document.getElementById("myChart");
+            var ctx = canvas.getContext("2d");
+            ctx.hight = 100;
+            ctx.width = 100;
 
-             this.myBarChart = new chart(ctx, {
+            this.myBarChart = new chart(ctx, {
                 type: 'bar',
                 data: {
                     datasets: [{
@@ -63,42 +68,42 @@ export class userDisplayController implements ng.IController {
                     labels: chartData.labels
                 }
 
-             });
-        // });
-
+            });
+        }).catch(e=> {
+            console.log(e);
+        });
     }
 
-    private getUserTimeUsage(){
-        this.user.forEach((use:any) => {
-            _.extend(use, {took: ((((new Date(use.FocusEndTime) - new Date(use.FocusStartTime)) /1000)))});
+    private getUserTimeUsage() {
+        this.user.forEach((use: any) => {
+            _.extend(use, {took: ((Math.abs((new Date(use.FocusEndTime) - new Date(use.FocusStartTime)) / 1000)))});
         });
 
         // const usageByDate =  _.groupBy(this.user, (use:any)=>{
         //     return moment(use).startOf('day').format();
         // });
 
-        const usegByComp = _.groupBy(this.user, (use:any)=> {
+        const usegByComp = _.groupBy(this.user, (use: any)=> {
             return use.WindowTitle;
         })
 
         const sum = {};
-        for (let use in this.user){
+        for (let use in this.user) {
             let current = this.user[use];
-            if (!sum[current.WindowTitle]){
+            if (!sum[current.WindowTitle]) {
                 sum[current.WindowTitle] = 0;
             }
             sum[current.WindowTitle] += current.took;
         }
-debugger;
+        debugger;
         const sumAsObjectList = [];
-        for(let comp in sum){
-            sumAsObjectList.push({component : comp, count : sum[comp]});
+        for (let comp in sum) {
+            sumAsObjectList.push({component: comp, count: sum[comp]});
         }
 
-        sumAsObjectList.sort((b, a) =>{
+        sumAsObjectList.sort((b, a) => {
             return a.count - b.count;
         });
-
 
 
         const values = _.map(sumAsObjectList, obj=> obj.count);
@@ -107,28 +112,16 @@ debugger;
             data: values,
             labels: keys
         };
-
-        let usageByDateFormated: any;
-
-        // angular.forEach(usageByDate, (value,key)=> {
-        //     usageByDateFormated = _.map(value, (usage,date) => {
-        //         return date;
-        //     })
-        // })
-
-
-
-        return formated ;
     }
 
     private updateTimeScale() {
-        let newData ={};
+        let newData = {};
         switch (this.timeScale) {
             case 'hours':
-                newData = _.map(this.barData, data => data /60 /60);
+                newData = _.map(this.barData, data => data / 60 / 60);
                 break;
             case 'minutes' :
-                newData = _.map(this.barData, data => data /60 );
+                newData = _.map(this.barData, data => data / 60);
                 break;
             default:
             case 'seconds' :
@@ -136,10 +129,9 @@ debugger;
                 break;
         }
 
-        this.myBarChart.data.datasets[0].data  = newData;
+        this.myBarChart.data.datasets[0].data = newData;
         this.myBarChart.update();
     }
-
 
 
     private json = `[{ 

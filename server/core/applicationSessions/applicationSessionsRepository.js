@@ -5,20 +5,23 @@ var repository = {
 
 var connectionProvider = require('../utils/MongoConnectionProvider'),
     assert = require('assert'),
-    Promise = require('promise');
+    Promise = require('promise'),
+    mongo = require('mongodb');
 
 function getByUserId(userId) {
     return new Promise(function (resolve, reject) {
         try {
             connectionProvider.getConnection(function (db) {
                 var collection = db.collection('applicationSessions');
-                collection.find({UserId: userId}).toArray(function (err, sessions) {
+                collection.find({UserId: new mongo.ObjectID(userId)}).toArray(function (err, sessions) {
                     if (err) {
                         reject(err);
+                        return;
                     }
                     resolve(sessions);
+                    db.close();
                 });
-            });
+            }, true);
         } catch (e) {
             reject(e);
         }

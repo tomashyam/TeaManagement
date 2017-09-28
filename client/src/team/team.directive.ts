@@ -16,6 +16,7 @@ export class TeamController {
 
     public onUserSelect(member: any): void {
         this.IdentityService.currentUser = member;
+        this.$location.url("user");
     }
 
     public onAddUser(): void {

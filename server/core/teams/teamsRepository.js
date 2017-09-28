@@ -15,10 +15,10 @@ const collectionName = "teams";
 const mongo = require('mongodb');
 
 function getAllTeams() {
-    return new Promise((resolve, reject)=> {
-        connectionProvider.getConnection(db => {
+    return new Promise(function (resolve, reject) {
+        connectionProvider.getConnection(function (db)  {
             const collection = db.collection(collectionName);
-            collection.find().toArray((err, teams)=> {
+            collection.find().toArray(function (err, teams) {
                 if (err) {
                     reject(error);
                 }
@@ -29,10 +29,10 @@ function getAllTeams() {
 };
 
 function addTeam(team) {
-    return new Promise((resolve, reject)=> {
-        connectionProvider.getConnection((db)=> {
+    return new Promise(function(resolve, reject) {
+        connectionProvider.getConnection(function (db) {
             const collection = db.collection(collectionName);
-            collection.insert(team, (err, result) => {
+            collection.insert(team,function (err, result)  {
                 if (err) {
                     reject(err);
                 }
@@ -43,10 +43,10 @@ function addTeam(team) {
 };
 
 function deleteTeam(teamId) {
-    return new Promise((resolve, reject)=> {
-        connectionProvider.getConnection((db)=> {
+    return new Promise(function (resolve, reject) {
+        connectionProvider.getConnection(function (db) {
             const collection = db.collection(collectionName);
-            collection.delete({_id: teamId}, (err, result) => {
+            collection.delete({_id: teamId},function (err, result)  {
                 if (err) {
                     reject(err);
                 }
@@ -57,10 +57,10 @@ function deleteTeam(teamId) {
 };
 
 function getMembers(teamId) {
-    return new Promise((resolve, reject)=> {
-        connectionProvider.getConnection(db => {
+    return new Promise( function (resolve, reject) {
+        connectionProvider.getConnection(function (db)  {
             const collection = db.collection('users');
-            collection.find({TeamId: new mongo.ObjectID(teamId)}).toArray((err, teams)=> {
+            collection.find({teamid : teamId}).toArray(function(err, teams) {
                 if (err) {
                     reject(error);
                 }

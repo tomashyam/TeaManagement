@@ -8,11 +8,13 @@ const connectionProvider = {
 
 const url = 'mongodb://ws66:27017/teaManagement';
 
-function getConnection (callback)  {
+function getConnection (callback, keepOpen)  {
         MongoClient.connect(url, function(err, db) {
             assert.equal(null, err);
             callback(db);
-            db.close();
+            if (!keepOpen) {
+                db.close();
+            }
         });
 
 }

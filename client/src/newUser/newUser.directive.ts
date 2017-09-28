@@ -1,3 +1,4 @@
+import {IIdentityService} from "../Utilities/identityService";
 export class NewUserComponent  {
     templateUrl = '/newUser/newUser.template.html';
     controller= NewUserController;
@@ -10,14 +11,15 @@ export class NewUserController {
     private teamId: string;
     private mail: string;
 
-    static $inject = ['FacadeApiService', '$location'];
-    constructor(private FacadeApiService: any, private $location: any) {
+    static $inject = ['FacadeApiService', 'IdentityService' ,'$location'];
+    constructor(private FacadeApiService: any,private IdentityService :IIdentityService, private $location: any) {
 
 
     }
 
     public createUser(): void  {
-        this.FacadeApiService.addNewUser({name: this.name, teamid: this.teamId, mail: this.mail}).then((result: any) => {
+
+        this.FacadeApiService.addNewUser({name: this.name, teamid: this.IdentityService.currentTeam._id, mail: this.mail}).then((result: any) => {
 
         }, (error : string) => {
 
