@@ -1,0 +1,21 @@
+<h2>{{vm.IdentityService.currentTeam.name}}</h2>
+
+<div layout-align="center center" layout="row">
+    <div layout="column" flex="30" style="box-shadow: 5px 4px 6px #888888;">
+        <md-toolbar class="md-3-line">
+            <div class="md-toolbar-tools">
+                <h3 style="margin-left: auto; margin-right: auto;">
+                    <span>חברי צוות</span>
+                </h3>
+            </div>
+        </md-toolbar>
+
+        <div ng-repeat="member in vm.IdentityService.currentTeam.members">
+            <md-list-item ng-click="vm.onUserSelect(member)">
+                <span>{{member.Name}}</span>
+            </md-list-item>
+            <md-divider></md-divider>
+        </div>
+
+    </div>
+</div>
