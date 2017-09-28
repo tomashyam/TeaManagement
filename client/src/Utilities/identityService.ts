@@ -3,9 +3,6 @@ export interface IIdentityService  {
     currentTeam: any;
 }
 export class IdentityService implements IIdentityService {
-    public currentUser;
-    public currentTeam;
+    public currentUser : any;
+    public currentTeam : any;
 }
-
-
-

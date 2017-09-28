@@ -17,6 +17,7 @@ import NewTeam from '../newTeam/newTeam.module';
 
 import {AppDataService} from '../Utilities/appData.service';
 import {IdentityService} from '../Utilities/identityService';
+import {FacadeApiService} from '../Utilities/facadeApi.service'
 
 import angularMaterial from 'angular-material';
 
@@ -36,6 +37,7 @@ var application = angular.module('app', [
 
 application.service('AppDataService', AppDataService);
 application.service('IdentityService', IdentityService);
+application.service('FacadeApiService', FacadeApiService);
 
 application.config(function ($routeProvider: ng.route.IRouteProvider): void {
     $routeProvider

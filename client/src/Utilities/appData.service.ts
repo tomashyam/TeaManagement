@@ -1,4 +1,4 @@
-export class AppDataService {
+export class AppDataService implements IAppDataService{
 
     static $inject = ['$mdSidenav'];
 
