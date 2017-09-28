@@ -50,6 +50,12 @@ application.config(function ($routeProvider: ng.route.IRouteProvider): void {
         .when("/Team", {
             template : "<team></team>"
         })
+        .when("/AddTeam", {
+            template : "<new-team></new-team>"
+        })
+        .when("/AddUser", {
+            template : "<new-user></new-user>"
+        })
         .when("/Servers", {
             template : "<servers></servers>"
         });
