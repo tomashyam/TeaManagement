@@ -5,7 +5,7 @@ import 'angular-messages';
 import ngRoute from 'angular-route';
 import 'angular-data-grid/dist/dataGrid';
 import 'angular-data-grid/dist/pagination';
-
+import 'chart.js'
 import Sample from '../sample/sample.module'
 import TeamSelector from '../teamSelector/teamSelector.module'
 import Toolbar from '../toolbar/toolbar.module'

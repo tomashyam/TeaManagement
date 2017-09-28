@@ -18,8 +18,8 @@ var ServersRepository = {
                             reject(err);
                         }
                         resolve(servers);
-                    });
-                });
+                    })
+                })
             } catch (e) {
                 reject(e);
             }
@@ -29,7 +29,7 @@ var ServersRepository = {
     function add(server) {
         return new Promise(function (resolve, reject) {
             try {
-                connectionProvider.getConnection((db)=> {
+                connectionProvider.getConnection( (db) => {
                     var collection = db.collection('servers');
                     collection.insert(server, (err, result) => {
                         if (err) {
