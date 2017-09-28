@@ -1,0 +1,61 @@
+<md-dialog aria-label="Mango (Fruit)">
+    <form ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>יצירת שרת חדש</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon ng-bind="'close'" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content style="width: 500px; direction: ltr">
+            <div class="md-dialog-content">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Hostname</label>
+                    <input ng-model="server.hostname">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>IP</label>
+                    <input ng-model="server.address">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Project</label>
+                    <input ng-model="server.project">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Environment</label>
+                    <input ng-model="server.environment">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Description</label>
+                    <input ng-model="server.description">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>OS</label>
+                    <input ng-model="server.OS">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Is Alive Url</label>
+                    <input ng-model="server.IsAliveUrl">
+                </md-input-container>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Password</label>
+                    <input ng-model="server.password" type="password">
+                </md-input-container>
+
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-click="answer(server)">
+                שמור
+            </md-button>
+            <md-button ng-click="answer('cancle')">
+                ביטול
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

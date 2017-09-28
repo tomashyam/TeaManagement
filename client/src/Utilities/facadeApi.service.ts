@@ -5,7 +5,9 @@ export class FacadeApiService implements IFacadeApiService {
     }
 
     private getUserSessionsRoute = 'http://localhost:3000/applicationSessions/getByUserId';
+
     private getTeamServersRoute = 'http://localhost:3000/servers';
+    private addTeamServerRoute = 'http://localhost:3000/servers/Add';
     //     ('/users', users);
     // app.use('/applicationSessions', applicationSessions);
     // app.use('/servers', serversRoute);
@@ -23,6 +25,10 @@ export class FacadeApiService implements IFacadeApiService {
 
     public getTeamServers(teamId: string): ng.IPromise<any> {
         return this.$http.get(this.getTeamServersRoute + '/' + teamId);
+    };
+
+    public addTeamServer(json: any): ng.IPromise<any> {
+        return this.$http.post(this.addTeamServerRoute, json);
     };
 
     // public insertCustomer = function (cust) {

@@ -11,9 +11,9 @@ var ServersRepository = {
     function getByTeamId(teamId) {
         return new Promise(function (resolve, reject) {
             try {
-                connectionProvider.getConnection((db) => {
+                connectionProvider.getConnection(function(db) {
                     var collection = db.collection('servers');
-                    collection.find({TeamId: new mongo.ObjectID(teamId)}).toArray((err, servers)=> {
+                    collection.find({TeamId: new mongo.ObjectID(teamId)}).toArray(function(err, servers) {
                         if (err) {
                             reject(err);
                         }
@@ -29,9 +29,9 @@ var ServersRepository = {
     function add(server) {
         return new Promise(function (resolve, reject) {
             try {
-                connectionProvider.getConnection((db)=> {
+                connectionProvider.getConnection(function(db) {
                     var collection = db.collection('servers');
-                    collection.insert(server, (err, result) => {
+                    collection.insert(server, function(err, result) {
                         if (err) {
                             reject(err);
                         }

@@ -1,4 +1,10 @@
 <div layout="column" layout-fill style="direction:ltr;">
+    <div style="direction:rtl; display: flex; align-items: baseline; margin-right: 20px; margin-top: 15px;">
+        <md-button class="md-fab" aria-label="cake" style="margin-left: 15px;" ng-click="ctrl.showAdvanced($event)">
+            <md-icon ng-bind="'add'"></md-icon>
+        </md-button>
+        <span style="font-size: 20px;" flex md-truncate>הוספת שרת חדש</span>
+    </div>
     <div layout-padding layout="row" layout-align="center">
         <div flex-gt-md="60" flex-md="80" flex-xs="100">
            <div layout-gt-xs="row" layout-xs="column" layout-align="stretch center">
@@ -82,7 +88,7 @@
                                 <span>Username</span>
                                 <span class="arrow"></span>
                             </th>
-                            <th class="sortable mdl-data-table__cell--non-numeric">
+                            <th sortable="description" class="sortable mdl-data-table__cell--non-numeric">
                                 <span>Description</span>
                                 <span class="arrow"></span>
                             </th>
