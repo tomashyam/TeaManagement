@@ -1,3 +1,4 @@
+import {IIdentityService} from "../Utilities/identityService";
 /**
  * Created by hack on 28/09/2017.
  */
@@ -7,28 +8,71 @@ const moment = require('moment');
 const chart = require('chart.js');
 
 export class userDisplay implements ng.IDirective {
-    templateUrl = 'user/userDisplay.html';
-    controller= userDisplayController;
-    bindigs = {
-        userId: "@"
-    }
-    cotrollerAs = 'vm';
+    templateUrl = 'user/user.html';
+    controller = userDisplayController;
+    controllerAs  = 'vm';
 }
 
 export class userDisplayController implements ng.IController {
 
+    private myBarChart;
+    private barData: any[];
     public userId:any;
-
+    public timeScale: any;
     public user:any;
+
 
      constructor (){
         // this.dataProvider.getUser(this.userId).then((user:any) => {
         //     this.user = user;
-         this.user = this.json;
-         let ctx = document.getElementById("myChart").getContext('2d');
-            var myBarChart = new Chart(ctx, {
-                 type: 'bar',
-                 data: this.getUserTimeUsage()
+         this.userId = "AAASS";
+
+         this.user = JSON.parse(this.json);
+         var chartData = this.getUserTimeUsage()
+         this.barData = chartData.data;
+         var canvas = <HTMLCanvasElement> document.getElementById("myChart");
+         var ctx = canvas.getContext("2d");
+             ctx.hight = 100;
+             ctx.width = 100;
+
+             this.myBarChart = new chart(ctx, {
+                type: 'bar',
+                data: {
+                    datasets: [{
+                        data: chartData.data,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.8)',
+                            'rgba(54, 162, 111, 0.8)',
+                            'rgba(155, 206, 86, 0.8)',
+                            'rgba(225, 206, 86, 0.8)',
+                            'rgba(253, 106, 86, 0.8)',
+                            'rgba(213, 246, 12, 0.8)',
+                            'rgba(223, 046, 32, 0.8)',
+                            'rgba(055, 216, 86, 0.8)',
+                            'rgba(098, 6, 86, 0.8)',
+                            'rgba(255, 70, 86, 0.8)',
+                            'rgba(206, 180, 213, 0.8)',
+                            'rgba(86, 255, 86, 0.8)',
+                            'rgba(255, 111, 86, 0.8)',
+                            'rgba(70, 229, 86, 0.8)',
+                            'rgba(132, 49, 206, 0.8)'
+
+                        ],
+                        label: 'windo total seconds'
+                    }],
+                    labels: chartData.labels
+                },
+                 options : {
+                     responsive : true,
+                     scales : {
+                         xAxes: [{
+                             ticks: {
+                                 autoSkip: true,
+                                 autoSkipPadding: 20
+                             }
+                         }]
+                     }
+                 }
              });
         // });
 
@@ -36,18 +80,74 @@ export class userDisplayController implements ng.IController {
 
     private getUserTimeUsage(){
         this.user.forEach((use:any) => {
-            _.extendOwn(use, {took: Math.round((((use.FocusEndTime - use.FocusStartTime) % 86400000) % 3600000) / 60000)});
+            _.extend(use, {took: ((((new Date(use.FocusEndTime) - new Date(use.FocusStartTime)) /1000)))});
         });
 
-        const usageByDate =  _.groupBy(this.user, (use:any)=>{
-            return moment(use).startOf('day').format();
-        });
+        // const usageByDate =  _.groupBy(this.user, (use:any)=>{
+        //     return moment(use).startOf('day').format();
+        // });
 
-        usageByDate.map((usage,date) => {
-            return {x: date, y: usage.took};
+        const usegByComp = _.groupBy(this.user, (use:any)=> {
+            return use.WindowTitle;
         })
 
-        return usageByDate;
+        const sum = {};
+        for (let use in this.user){
+            let current = this.user[use];
+            if (!sum[current.WindowTitle]){
+                sum[current.WindowTitle] = 0;
+            }
+            sum[current.WindowTitle] += current.took;
+        }
+debugger;
+        const sumAsObjectList = [];
+        for(let comp in sum){
+            sumAsObjectList.push({component : comp, count : sum[comp]});
+        }
+
+        sumAsObjectList.sort((b, a) =>{
+            return a.count - b.count;
+        });
+
+
+
+        const values = _.map(sumAsObjectList, obj=> obj.count);
+        const keys = _.map(sumAsObjectList, obj=> obj.component);
+        return {
+            data: values,
+            labels: keys
+        };
+
+        let usageByDateFormated: any;
+
+        // angular.forEach(usageByDate, (value,key)=> {
+        //     usageByDateFormated = _.map(value, (usage,date) => {
+        //         return date;
+        //     })
+        // })
+
+
+
+        return formated ;
+    }
+
+    private updateTimeScale() {
+        let newData ={};
+        switch (this.timeScale) {
+            case 'hours':
+                newData = _.map(this.barData, data => data /60 /60);
+                break;
+            case 'minutes' :
+                newData = _.map(this.barData, data => data /60 );
+                break;
+            default:
+            case 'seconds' :
+                newData = this.barData;
+                break;
+        }
+
+        this.myBarChart.data.datasets[0].data  = newData;
+        this.myBarChart.update();
     }
 
 
@@ -56,8 +156,8 @@ export class userDisplayController implements ng.IController {
     "_id" : "59cb9dd1bc7181266daf394a", 
     "Name" : "IntelliJ.exe", 
     "WindowTitle" : "IntelliJ", 
-    "FocusStartTime" : ISODate"2017-09-27T12:47:13.601+0000", 
-    "FocusEndTime" : ISODate"2017-09-27T12:47:13.601+0000", 
+    "FocusStartTime" : "2017-09-27T12:47:13.601+0000", 
+    "FocusEndTime" : "2017-09-27T12:47:13.601+0000", 
     "UserId" : "dor"
 },
 { 

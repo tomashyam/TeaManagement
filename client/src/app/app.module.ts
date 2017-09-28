@@ -10,6 +10,7 @@ import Sample from '../sample/sample.module';
 import TeamSelector from '../teamSelector/teamSelector.module';
 import Toolbar from '../toolbar/toolbar.module';
 import Sidenav from '../sidenav/sidenav.module';
+import userDisplay from '../user/user.component'
 import Servers from '../servers/servers.module';
 import Team from '../team/team.module';
 import NewUser from '../newUser/newUser.module';
@@ -19,11 +20,11 @@ import {AppDataService} from '../Utilities/appData.service';
 import {IdentityService} from '../Utilities/identityService';
 import {FacadeApiService} from '../Utilities/facadeApi.service'
 import 'chart.js'
-import {AppDataService} from '../Utilities/appData.service'
+
 
 import angularMaterial from 'angular-material';
 
-var application = angular.module('app', [
+var application = angular.module('app',  [
     ngRoute,
     angularMaterial,
     Sample,
@@ -31,20 +32,23 @@ var application = angular.module('app', [
     Toolbar,
     Sidenav,
     Servers,
+    userDisplay,
     'dataGrid', 'pagination',
     Team,
     NewUser,
     NewTeam
-]);
+ ]);
 
 application.service('AppDataService', AppDataService);
+
+application.config(function($routeProvider : ng.route.IRouteProvider) : void {
 application.service('IdentityService', IdentityService);
 application.service('FacadeApiService', FacadeApiService);
 
 application.config(function ($routeProvider: ng.route.IRouteProvider): void {
     $routeProvider
         .when("/", {
-            template: "<team-selector></team-selector>"
+            template : "<team-selector></team-selector>"
         })
         .when("/Teams", {
             template : "<team-selector></team-selector>"
@@ -60,5 +64,7 @@ application.config(function ($routeProvider: ng.route.IRouteProvider): void {
         })
         .when("/Servers", {
             template : "<servers></servers>"
-        });
+        }).when("/user", {
+            template : "<user></user>"
+    });
 });
