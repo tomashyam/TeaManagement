@@ -61,18 +61,8 @@ export class userDisplayController implements ng.IController {
                         label: 'windo total seconds'
                     }],
                     labels: chartData.labels
-                },
-                 options : {
-                     responsive : true,
-                     scales : {
-                         xAxes: [{
-                             ticks: {
-                                 autoSkip: true,
-                                 autoSkipPadding: 20
-                             }
-                         }]
-                     }
-                 }
+                }
+
              });
         // });
 
