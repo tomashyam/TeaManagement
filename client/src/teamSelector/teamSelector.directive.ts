@@ -1,4 +1,5 @@
 import {IIdentityService} from '../Utilities/identityService';
+import {IFacadeApiService} from '../Utilities/facadeApi.service';
 
 export class TeamSelectorComponent {
     templateUrl = 'teamSelector/teamSelector.html';
@@ -8,38 +9,18 @@ export class TeamSelectorComponent {
 
 export class TeamSelectorController {
 
-    static $inject = ['IdentityService', '$location'];
+    public teams;
 
-    constructor(public IdentityService: IIdentityService, public $location: any) {
+    static $inject = ['FacadeApiService','IdentityService', '$location'];
 
+    constructor(private FacadeApiService: IFacadeApiService,public IdentityService: IIdentityService, public $location: any) {
+        FacadeApiService.getAllTeams().then((result: any) => {
+            this.teams = result.data;
+        });
     }
 
-    public teams = [{
-        _id: 1,
-        name: "תור בינה",
-        members: [{
-            Name: "משה",
-            Id: "moshe",
-            Mail: "A@gmail.com"
-        },
-            {
-                Name: "משה",
-                Id: "moshe",
-                Mail: "A@gmail.com"
-            }
-        ]
-    }, {
-        _id: 2,
-        name: "פייטלאב",
-        members: [{
-            Name: "משה",
-            Id: "moshe",
-            Mail: "A@gmail.com"
-        }]
-    }];
-
     public onTeamSelect(team: any): void {
-        this.IdentityService.currentTeam = team;
+        this.IdentityService.setCurrentTeam(team);
         this.$location.url("/Team");
     }
 

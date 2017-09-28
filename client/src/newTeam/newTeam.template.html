@@ -2,8 +2,16 @@
     <div layout="column" flex="60">
         <md-input-container>
             <label>שם</label>
-            <input ng-model="team.name">
+            <input ng-model="vm.teamName">
         </md-input-container>
-        <md-button class="md-raised">צור</md-button>
+        <md-input-container>
+            <label>מפקד</label>
+            <input ng-model="vm.commander">
+        </md-input-container>
+        <md-input-container>
+            <label>מדור</label>
+            <input ng-model="vm.department">
+        </md-input-container>
+        <md-button ng-click="vm.createTeam()" class="md-raised">צור</md-button>
     </div>
 </div>
